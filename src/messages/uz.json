@@ -52,6 +52,43 @@
     "expenses": "Xarajatlar",
     "reports": "Hisobotlar",
     "settings": "Sozlamalar",
-    "users": "Foydalanuvchilar"
+    "users": "Foydalanuvchilar",
+    "profile": "Profil"
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Shaxsiy ma'lumotlaringiz va hisob sozlamalarini boshqaring",
+    "personalInfo": "Shaxsiy ma'lumotlar",
+    "accountInfo": "Hisob ma'lumotlari",
+    "firstName": "Ism",
+    "firstNamePlaceholder": "Ismingizni kiriting",
+    "lastName": "Familiya",
+    "lastNamePlaceholder": "Familiyangizni kiriting",
+    "phoneNumber": "Telefon raqami",
+    "role": "Rol",
+    "memberSince": "A'zolik sanasi",
+    "status": "Holat",
+    "active": "Faol",
+    "inactive": "Faol emas",
+    "updateSuccess": "Profil muvaffaqiyatli yangilandi"
+  },
+  "common": {
+    "appName": "Maktab Buxgalteriyasi",
+    "tagline": "Boshqaruv tizimi",
+    "loading": "Yuklanmoqda...",
+    "error": "Xatolik yuz berdi",
+    "save": "Saqlash",
+    "saveChanges": "O'zgarishlarni saqlash",
+    "saving": "Saqlanmoqda...",
+    "cancel": "Bekor qilish",
+    "delete": "O'chirish",
+    "edit": "Tahrirlash",
+    "create": "Yaratish",
+    "search": "Qidirish",
+    "actions": "Amallar",
+    "confirm": "Tasdiqlash",
+    "back": "Orqaga",
+    "next": "Keyingi",
+    "submit": "Yuborish"
   }
 }

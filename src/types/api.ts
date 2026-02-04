@@ -23,7 +23,7 @@ export interface User {
   phone_number: string;
   first_name: string;
   last_name: string;
-  role: "super_admin" | "school_admin" | "accountant" | "staff";
+  role: "owner" | "superuser" | "director" | "shareholder" | "accountant" | "staff";
   school_id: string | null;
   profile_picture: string | null;
   is_active: boolean;

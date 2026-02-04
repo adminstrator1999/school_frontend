@@ -52,6 +52,43 @@
     "expenses": "Expenses",
     "reports": "Reports",
     "settings": "Settings",
-    "users": "Users"
+    "users": "Users",
+    "profile": "Profile"
+  },
+  "profile": {
+    "title": "Profile",
+    "description": "Manage your personal information and account settings",
+    "personalInfo": "Personal Information",
+    "accountInfo": "Account Information",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter your last name",
+    "phoneNumber": "Phone Number",
+    "role": "Role",
+    "memberSince": "Member Since",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "updateSuccess": "Profile updated successfully"
+  },
+  "common": {
+    "appName": "School Accounting",
+    "tagline": "Management System",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "actions": "Actions",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit"
   }
 }

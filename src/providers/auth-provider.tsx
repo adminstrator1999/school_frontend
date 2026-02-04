@@ -9,6 +9,15 @@ import { locales, type Locale } from "@/i18n/config";
 
 const TOKEN_KEY = "auth_tokens";
 
+interface UserUpdateData {
+  language?: Language;
+  theme?: Theme;
+  first_name?: string;
+  last_name?: string;
+  phone_number?: string;
+  profile_picture?: string;
+}
+
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
@@ -16,7 +25,8 @@ interface AuthContextType {
   login: (tokens: Token) => Promise<void>;
   logout: () => void;
   getAccessToken: () => string | null;
-  updateUserPreferences: (prefs: { language?: Language; theme?: Theme }) => Promise<void>;
+  updateUserPreferences: (prefs: UserUpdateData) => Promise<void>;
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -101,12 +111,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setStoredTokens(tokens);
     const userData = await fetchUser(tokens.access_token, true);
     if (userData) {
-      // Navigate to dashboard with user's preferred language
-      router.push(`/${userData.language}/dashboard`);
+      const basePath = `/${userData.language}/dashboard`;
+      if (userData.role === "owner" || userData.role === "superuser") {
+        router.push(basePath);
+      } else if (userData.school_id) {
+        router.push(`${basePath}/schools/${userData.school_id}`);
+      } else {
+        router.push(basePath);
+      }
     }
   }, [fetchUser, router]);
 
-  const updateUserPreferences = useCallback(async (prefs: { language?: Language; theme?: Theme }) => {
+  const updateUserPreferences = useCallback(async (prefs: UserUpdateData) => {
     const token = getAccessToken();
     if (!token || !user) return;
 
@@ -115,8 +131,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(updatedUser);
     } catch (error) {
       console.error("Failed to update preferences:", error);
+      throw error;
     }
   }, [getAccessToken, user]);
+
+  const refreshUser = useCallback(async () => {
+    const token = getAccessToken();
+    if (!token) return;
+    await fetchUser(token, false);
+  }, [getAccessToken, fetchUser]);
 
   useEffect(() => {
     const initAuth = async () => {
@@ -144,6 +167,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         logout,
         getAccessToken,
         updateUserPreferences,
+        refreshUser,
       }}
     >
       {children}

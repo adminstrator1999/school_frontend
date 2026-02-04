@@ -1,6 +1,15 @@
 import { apiClient } from "./client";
 import type { Token, LoginRequest, User, Language, Theme } from "@/types/api";
 
+export interface UserUpdateData {
+  language?: Language;
+  theme?: Theme;
+  first_name?: string;
+  last_name?: string;
+  phone_number?: string;
+  profile_picture?: string;
+}
+
 export const authApi = {
   login: async (data: LoginRequest): Promise<Token> => {
     return apiClient.post<Token>("/auth/login", data);
@@ -14,7 +23,7 @@ export const authApi = {
     return apiClient.get<User>("/users/me", token);
   },
 
-  updateMe: async (token: string, data: { language?: Language; theme?: Theme }): Promise<User> => {
+  updateMe: async (token: string, data: UserUpdateData): Promise<User> => {
     return apiClient.patch<User>("/users/me", data, token);
   },
 };

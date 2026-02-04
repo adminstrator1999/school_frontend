@@ -52,6 +52,43 @@
     "expenses": "Расходы",
     "reports": "Отчёты",
     "settings": "Настройки",
-    "users": "Пользователи"
+    "users": "Пользователи",
+    "profile": "Профиль"
+  },
+  "profile": {
+    "title": "Профиль",
+    "description": "Управляйте личными данными и настройками аккаунта",
+    "personalInfo": "Личная информация",
+    "accountInfo": "Информация об аккаунте",
+    "firstName": "Имя",
+    "firstNamePlaceholder": "Введите имя",
+    "lastName": "Фамилия",
+    "lastNamePlaceholder": "Введите фамилию",
+    "phoneNumber": "Номер телефона",
+    "role": "Роль",
+    "memberSince": "Дата регистрации",
+    "status": "Статус",
+    "active": "Активен",
+    "inactive": "Неактивен",
+    "updateSuccess": "Профиль успешно обновлён"
+  },
+  "common": {
+    "appName": "Школьный учёт",
+    "tagline": "Система управления",
+    "loading": "Загрузка...",
+    "error": "Произошла ошибка",
+    "save": "Сохранить",
+    "saveChanges": "Сохранить изменения",
+    "saving": "Сохранение...",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "create": "Создать",
+    "search": "Поиск",
+    "actions": "Действия",
+    "confirm": "Подтвердить",
+    "back": "Назад",
+    "next": "Далее",
+    "submit": "Отправить"
   }
 }
