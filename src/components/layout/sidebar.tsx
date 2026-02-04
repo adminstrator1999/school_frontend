@@ -67,16 +67,28 @@ export function Sidebar() {
     );
   };
 
-  const isActive = (href: string) => {
-    const hrefWithoutLocale = href.replace(`/${locale}`, "");
-    if (hrefWithoutLocale === "/dashboard") {
-      return pathname === "/dashboard";
+  const getPathWithoutLocale = (path: string) => {
+    if (path.startsWith(`/${locale}/`)) {
+      return path.replace(`/${locale}`, "");
     }
-    return pathname === hrefWithoutLocale || pathname.startsWith(hrefWithoutLocale + "/");
+    if (path === `/${locale}`) {
+      return "/";
+    }
+    return path;
+  };
+
+  const isActive = (href: string) => {
+    const normalizedPathname = getPathWithoutLocale(pathname);
+    const normalizedHref = getPathWithoutLocale(href);
+    if (normalizedHref === "/dashboard") {
+      return normalizedPathname === "/dashboard";
+    }
+    return normalizedPathname === normalizedHref || normalizedPathname.startsWith(normalizedHref + "/");
   };
   const isChildActive = (item: NavItem) => item.children?.some((child) => {
-    const childHrefWithoutLocale = child.href.replace(`/${locale}`, "");
-    return pathname === childHrefWithoutLocale || pathname.startsWith(childHrefWithoutLocale + "/");
+    const normalizedPathname = getPathWithoutLocale(pathname);
+    const normalizedHref = getPathWithoutLocale(child.href);
+    return normalizedPathname === normalizedHref || normalizedPathname.startsWith(normalizedHref + "/");
   });
 
   return (
