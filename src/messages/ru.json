@@ -1,0 +1,57 @@
+{
+  "common": {
+    "appName": "Школьный учёт",
+    "tagline": "Система управления",
+    "loading": "Загрузка...",
+    "error": "Произошла ошибка",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "create": "Создать",
+    "search": "Поиск",
+    "actions": "Действия",
+    "confirm": "Подтвердить",
+    "back": "Назад",
+    "next": "Далее",
+    "submit": "Отправить"
+  },
+  "auth": {
+    "login": "Войти",
+    "logout": "Выйти",
+    "welcome": "Добро пожаловать",
+    "loginDescription": "Введите данные для входа в аккаунт",
+    "phoneNumber": "Номер телефона",
+    "phonePlaceholder": "+998901234567",
+    "password": "Пароль",
+    "passwordPlaceholder": "Введите пароль",
+    "signingIn": "Вход...",
+    "invalidPhone": "Неверный номер телефона. Формат: +998901234567",
+    "phoneRequired": "Номер телефона обязателен",
+    "passwordMin": "Пароль должен содержать минимум 6 символов",
+    "loginFailed": "Ошибка входа. Попробуйте снова.",
+    "incorrectCredentials": "Неверный номер телефона или пароль"
+  },
+  "dashboard": {
+    "title": "Панель управления",
+    "welcome": "Добро пожаловать в панель управления",
+    "overview": "Обзор",
+    "totalStudents": "Всего учеников",
+    "totalIncome": "Общий доход",
+    "totalExpenses": "Общие расходы",
+    "pendingPayments": "Ожидающие платежи"
+  },
+  "navigation": {
+    "dashboard": "Панель управления",
+    "schools": "Школы",
+    "students": "Ученики",
+    "classes": "Классы",
+    "employees": "Сотрудники",
+    "invoices": "Счета",
+    "payments": "Платежи",
+    "expenses": "Расходы",
+    "reports": "Отчёты",
+    "settings": "Настройки",
+    "users": "Пользователи"
+  }
+}

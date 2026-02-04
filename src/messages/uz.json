@@ -1,0 +1,57 @@
+{
+  "common": {
+    "appName": "Maktab Buxgalteriyasi",
+    "tagline": "Boshqaruv tizimi",
+    "loading": "Yuklanmoqda...",
+    "error": "Xatolik yuz berdi",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "delete": "O'chirish",
+    "edit": "Tahrirlash",
+    "create": "Yaratish",
+    "search": "Qidirish",
+    "actions": "Amallar",
+    "confirm": "Tasdiqlash",
+    "back": "Orqaga",
+    "next": "Keyingi",
+    "submit": "Yuborish"
+  },
+  "auth": {
+    "login": "Kirish",
+    "logout": "Chiqish",
+    "welcome": "Xush kelibsiz",
+    "loginDescription": "Hisobingizga kirish uchun ma'lumotlaringizni kiriting",
+    "phoneNumber": "Telefon raqami",
+    "phonePlaceholder": "+998901234567",
+    "password": "Parol",
+    "passwordPlaceholder": "Parolingizni kiriting",
+    "signingIn": "Kirilmoqda...",
+    "invalidPhone": "Telefon raqami noto'g'ri. Format: +998901234567",
+    "phoneRequired": "Telefon raqami kiritilishi shart",
+    "passwordMin": "Parol kamida 6 ta belgidan iborat bo'lishi kerak",
+    "loginFailed": "Kirishda xatolik. Qaytadan urinib ko'ring.",
+    "incorrectCredentials": "Telefon raqami yoki parol noto'g'ri"
+  },
+  "dashboard": {
+    "title": "Boshqaruv paneli",
+    "welcome": "Boshqaruv paneliga xush kelibsiz",
+    "overview": "Umumiy ko'rinish",
+    "totalStudents": "Jami o'quvchilar",
+    "totalIncome": "Jami daromad",
+    "totalExpenses": "Jami xarajatlar",
+    "pendingPayments": "Kutilayotgan to'lovlar"
+  },
+  "navigation": {
+    "dashboard": "Boshqaruv paneli",
+    "schools": "Maktablar",
+    "students": "O'quvchilar",
+    "classes": "Sinflar",
+    "employees": "Xodimlar",
+    "invoices": "Hisob-fakturalar",
+    "payments": "To'lovlar",
+    "expenses": "Xarajatlar",
+    "reports": "Hisobotlar",
+    "settings": "Sozlamalar",
+    "users": "Foydalanuvchilar"
+  }
+}

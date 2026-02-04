@@ -5,24 +5,26 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2, Phone, Lock, Eye, EyeOff } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useAuth } from "@/providers/auth-provider";
 import { authApi } from "@/lib/api";
 import { Button, Input, Label, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui";
 
-const loginSchema = z.object({
-  phone_number: z
-    .string()
-    .min(1, "Phone number is required")
-    .regex(/^\+998[0-9]{9}$/, "Invalid phone number. Use format: +998901234567"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
-type LoginFormData = z.infer<typeof loginSchema>;
-
 export function LoginForm() {
+  const t = useTranslations("auth");
   const { login } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+
+  const loginSchema = z.object({
+    phone_number: z
+      .string()
+      .min(1, t("phoneRequired"))
+      .regex(/^\+998[0-9]{9}$/, t("invalidPhone")),
+    password: z.string().min(6, t("passwordMin")),
+  });
+
+  type LoginFormData = z.infer<typeof loginSchema>;
 
   const {
     register,
@@ -42,15 +44,15 @@ export function LoginForm() {
       const tokens = await authApi.login(data);
       await login(tokens);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed. Please try again.");
+      setError(err instanceof Error ? err.message : t("loginFailed"));
     }
   };
 
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="space-y-1 text-center">
-        <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
-        <CardDescription>Enter your credentials to access your account</CardDescription>
+        <CardTitle className="text-2xl font-bold">{t("welcome")}</CardTitle>
+        <CardDescription>{t("loginDescription")}</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -61,13 +63,13 @@ export function LoginForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="phone_number">Phone Number</Label>
+            <Label htmlFor="phone_number">{t("phoneNumber")}</Label>
             <div className="relative">
               <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 id="phone_number"
                 type="tel"
-                placeholder="+998901234567"
+                placeholder={t("phonePlaceholder")}
                 className="pl-10"
                 {...register("phone_number")}
               />
@@ -78,13 +80,13 @@ export function LoginForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t("password")}</Label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 id="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
+                placeholder={t("passwordPlaceholder")}
                 className="pl-10 pr-10"
                 {...register("password")}
               />
@@ -105,10 +107,10 @@ export function LoginForm() {
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Signing in...
+                {t("signingIn")}
               </>
             ) : (
-              "Sign in"
+              t("login")
             )}
           </Button>
         </form>

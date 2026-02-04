@@ -15,6 +15,9 @@ export interface LoginRequest {
   password: string;
 }
 
+export type Language = "en" | "uz" | "ru";
+export type Theme = "light" | "dark";
+
 export interface User {
   id: string;
   phone_number: string;
@@ -24,6 +27,8 @@ export interface User {
   school_id: string | null;
   profile_picture: string | null;
   is_active: boolean;
+  language: Language;
+  theme: Theme;
   created_at: string;
   updated_at: string;
 }

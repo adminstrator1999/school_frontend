@@ -1,9 +1,11 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
-import { useRouter } from "next/navigation";
-import type { User, Token } from "@/types/api";
+import { useRouter, usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
+import type { User, Token, Language, Theme } from "@/types/api";
 import { authApi } from "@/lib/api";
+import { locales, type Locale } from "@/i18n/config";
 
 const TOKEN_KEY = "auth_tokens";
 
@@ -14,6 +16,7 @@ interface AuthContextType {
   login: (tokens: Token) => Promise<void>;
   logout: () => void;
   getAccessToken: () => string | null;
+  updateUserPreferences: (prefs: { language?: Language; theme?: Theme }) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -37,6 +40,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
+  const { setTheme } = useTheme();
+
+  // Extract locale from pathname
+  const getLocaleFromPath = useCallback(() => {
+    const segments = pathname.split("/");
+    const possibleLocale = segments[1];
+    if (locales.includes(possibleLocale as Locale)) {
+      return possibleLocale as Locale;
+    }
+    return "en" as Locale;
+  }, [pathname]);
+
+  // Apply user preferences (theme and language)
+  const applyUserPreferences = useCallback((userData: User) => {
+    // Apply theme
+    setTheme(userData.theme);
+    
+    // Apply language by navigating to the correct locale
+    const currentLocale = getLocaleFromPath();
+    if (userData.language !== currentLocale) {
+      const segments = pathname.split("/");
+      if (locales.includes(segments[1] as Locale)) {
+        segments[1] = userData.language;
+      } else {
+        segments.splice(1, 0, userData.language);
+      }
+      // Don't navigate here, will be done in login
+    }
+  }, [setTheme, getLocaleFromPath, pathname]);
 
   const getAccessToken = useCallback((): string | null => {
     const tokens = getStoredTokens();
@@ -44,37 +77,62 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const logout = useCallback(() => {
+    const locale = getLocaleFromPath();
     setStoredTokens(null);
     setUser(null);
-    router.push("/login");
-  }, [router]);
+    router.push(`/${locale}/login`);
+  }, [router, getLocaleFromPath]);
 
-  const fetchUser = useCallback(async (token: string) => {
+  const fetchUser = useCallback(async (token: string, applyPrefs = false) => {
     try {
       const userData = await authApi.getMe(token);
       setUser(userData);
+      if (applyPrefs) {
+        applyUserPreferences(userData);
+      }
+      return userData;
     } catch {
       logout();
+      return null;
     }
-  }, [logout]);
+  }, [logout, applyUserPreferences]);
 
   const login = useCallback(async (tokens: Token) => {
     setStoredTokens(tokens);
-    await fetchUser(tokens.access_token);
-    router.push("/dashboard");
+    const userData = await fetchUser(tokens.access_token, true);
+    if (userData) {
+      // Navigate to dashboard with user's preferred language
+      router.push(`/${userData.language}/dashboard`);
+    }
   }, [fetchUser, router]);
+
+  const updateUserPreferences = useCallback(async (prefs: { language?: Language; theme?: Theme }) => {
+    const token = getAccessToken();
+    if (!token || !user) return;
+
+    try {
+      const updatedUser = await authApi.updateMe(token, prefs);
+      setUser(updatedUser);
+    } catch (error) {
+      console.error("Failed to update preferences:", error);
+    }
+  }, [getAccessToken, user]);
 
   useEffect(() => {
     const initAuth = async () => {
       const tokens = getStoredTokens();
       if (tokens?.access_token) {
-        await fetchUser(tokens.access_token);
+        const userData = await fetchUser(tokens.access_token, false);
+        if (userData) {
+          // Apply theme on page load (but don't redirect)
+          setTheme(userData.theme);
+        }
       }
       setIsLoading(false);
     };
 
     initAuth();
-  }, [fetchUser]);
+  }, [fetchUser, setTheme]);
 
   return (
     <AuthContext.Provider
@@ -85,6 +143,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         login,
         logout,
         getAccessToken,
+        updateUserPreferences,
       }}
     >
       {children}

@@ -1,0 +1,57 @@
+{
+  "common": {
+    "appName": "School Accounting",
+    "tagline": "Management System",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "actions": "Actions",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit"
+  },
+  "auth": {
+    "login": "Sign in",
+    "logout": "Sign out",
+    "welcome": "Welcome back",
+    "loginDescription": "Enter your credentials to access your account",
+    "phoneNumber": "Phone Number",
+    "phonePlaceholder": "+998901234567",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "signingIn": "Signing in...",
+    "invalidPhone": "Invalid phone number. Use format: +998901234567",
+    "phoneRequired": "Phone number is required",
+    "passwordMin": "Password must be at least 6 characters",
+    "loginFailed": "Login failed. Please try again.",
+    "incorrectCredentials": "Incorrect phone number or password"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to the dashboard",
+    "overview": "Overview",
+    "totalStudents": "Total Students",
+    "totalIncome": "Total Income",
+    "totalExpenses": "Total Expenses",
+    "pendingPayments": "Pending Payments"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "schools": "Schools",
+    "students": "Students",
+    "classes": "Classes",
+    "employees": "Employees",
+    "invoices": "Invoices",
+    "payments": "Payments",
+    "expenses": "Expenses",
+    "reports": "Reports",
+    "settings": "Settings",
+    "users": "Users"
+  }
+}
