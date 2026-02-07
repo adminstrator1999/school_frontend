@@ -32,3 +32,14 @@ export interface User {
   created_at: string;
   updated_at: string;
 }
+
+export interface School {
+  id: string;
+  name: string;
+  address: string | null;
+  phone: string | null;
+  logo: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}

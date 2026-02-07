@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/providers/auth-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { SchoolSwitcher } from "@/components/layout/school-switcher";
 import { Button, Input } from "@/components/ui";
 import { Search, Bell, User, LogOut, Settings, ChevronDown } from "lucide-react";
 
@@ -35,7 +36,9 @@ export function Navbar() {
     <header className="sticky top-0 z-30 h-16 bg-card border-b border-border">
       <div className="flex h-full items-center justify-between px-4 lg:px-6">
         <div className="flex items-center gap-4">
-          <div className="relative hidden sm:block">
+          {/* School Switcher for owner/superuser */}
+          <SchoolSwitcher />
+          <div className="relative hidden lg:block">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input type="search" placeholder="Search..." className="w-64 pl-10 bg-background" />
           </div>

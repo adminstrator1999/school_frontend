@@ -44,18 +44,34 @@ export function Sidebar() {
   const { user } = useAuth();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
-  const allNavItems: NavItem[] = [
-    { title: t("dashboard"), href: `/${locale}/dashboard`, icon: <LayoutDashboard className="h-5 w-5 shrink-0" /> },
-    { title: t("schools"), href: `/${locale}/dashboard/schools`, icon: <School className="h-5 w-5 shrink-0" />, roles: ["owner", "superuser"] },
-    { title: t("students"), href: `/${locale}/dashboard/students`, icon: <GraduationCap className="h-5 w-5 shrink-0" /> },
-    { title: t("classes"), href: `/${locale}/dashboard/classes`, icon: <BookOpen className="h-5 w-5 shrink-0" /> },
-    { title: t("employees"), href: `/${locale}/dashboard/employees`, icon: <Users className="h-5 w-5 shrink-0" /> },
-    { title: t("invoices"), href: `/${locale}/dashboard/invoices`, icon: <FileText className="h-5 w-5 shrink-0" /> },
-    { title: t("payments"), href: `/${locale}/dashboard/payments`, icon: <CreditCard className="h-5 w-5 shrink-0" /> },
-    { title: t("expenses"), href: `/${locale}/dashboard/expenses`, icon: <Receipt className="h-5 w-5 shrink-0" /> },
-    { title: t("reports"), href: `/${locale}/dashboard/reports`, icon: <BarChart3 className="h-5 w-5 shrink-0" /> },
-    { title: t("settings"), href: `/${locale}/dashboard/settings`, icon: <Settings className="h-5 w-5 shrink-0" /> },
-  ];
+  // Detect if we're inside a school context
+  const schoolIdMatch = pathname.match(/\/dashboard\/schools\/([^/]+)/);
+  const currentSchoolId = schoolIdMatch ? schoolIdMatch[1] : null;
+  const isOwnerOrSuperuser = user?.role === "owner" || user?.role === "superuser";
+
+  // For non-owner/superuser, use their assigned school_id
+  // For owner/superuser not in a school context, don't show school-specific nav items
+  const effectiveSchoolId = currentSchoolId || (!isOwnerOrSuperuser ? user?.school_id : null);
+  const schoolBasePath = effectiveSchoolId ? `/${locale}/dashboard/schools/${effectiveSchoolId}` : null;
+
+  // Build navigation items - only show school-specific items when we have a school context
+  const allNavItems: NavItem[] = schoolBasePath
+    ? [
+        // Inside a school context - show full navigation
+        { title: t("dashboard"), href: schoolBasePath, icon: <LayoutDashboard className="h-5 w-5 shrink-0" /> },
+        { title: t("students"), href: `${schoolBasePath}/students`, icon: <GraduationCap className="h-5 w-5 shrink-0" /> },
+        { title: t("classes"), href: `${schoolBasePath}/classes`, icon: <BookOpen className="h-5 w-5 shrink-0" /> },
+        { title: t("employees"), href: `${schoolBasePath}/employees`, icon: <Users className="h-5 w-5 shrink-0" /> },
+        { title: t("invoices"), href: `${schoolBasePath}/invoices`, icon: <FileText className="h-5 w-5 shrink-0" /> },
+        { title: t("payments"), href: `${schoolBasePath}/payments`, icon: <CreditCard className="h-5 w-5 shrink-0" /> },
+        { title: t("expenses"), href: `${schoolBasePath}/expenses`, icon: <Receipt className="h-5 w-5 shrink-0" /> },
+        { title: t("reports"), href: `${schoolBasePath}/reports`, icon: <BarChart3 className="h-5 w-5 shrink-0" /> },
+        { title: t("settings"), href: `${schoolBasePath}/settings`, icon: <Settings className="h-5 w-5 shrink-0" /> },
+      ]
+    : [
+        // No school context (only owner/superuser on school selection page)
+        { title: t("dashboard"), href: `/${locale}/dashboard`, icon: <LayoutDashboard className="h-5 w-5 shrink-0" /> },
+      ];
 
   const navItems = allNavItems.filter((item) => 
     !item.roles || (user?.role && item.roles.includes(user.role))
