@@ -13,6 +13,7 @@ import { Search, Bell, User, LogOut, Settings, ChevronDown } from "lucide-react"
 export function Navbar() {
   const t = useTranslations("auth");
   const tNav = useTranslations("navigation");
+  const tRoles = useTranslations("roles");
   const locale = useLocale();
   const { user, logout } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -69,7 +70,7 @@ export function Navbar() {
               )}
               <div className="hidden md:block text-left">
                 <p className="text-sm font-medium">{user?.first_name} {user?.last_name}</p>
-                <p className="text-xs text-muted-foreground capitalize">{user?.role}</p>
+                <p className="text-xs text-muted-foreground capitalize">{user?.role && tRoles(user.role as any)}</p>
               </div>
               <ChevronDown className="h-4 w-4 text-muted-foreground hidden md:block" />
             </button>

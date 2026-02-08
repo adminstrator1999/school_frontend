@@ -5,8 +5,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslations } from "next-intl";
-import { Button, Input, Label, Card } from "@/components/ui";
+import { Button, Input, Label, Card, ImageUpload } from "@/components/ui";
 import { useAuth } from "@/providers/auth-provider";
+import { schoolsApi } from "@/lib/api/schools";
 import type { User } from "@/types/api";
 import { User as UserIcon, Phone, Loader2, Check } from "lucide-react";
 
@@ -16,6 +17,7 @@ const profileSchema = z.object({
   phone_number: z
     .string()
     .regex(/^\+998[0-9]{9}$/, "Phone number must be in format +998XXXXXXXXX"),
+  profile_picture: z.string().nullable().optional(),
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
@@ -27,7 +29,7 @@ interface ProfileFormProps {
 export function ProfileForm({ user }: ProfileFormProps) {
   const t = useTranslations("profile");
   const tCommon = useTranslations("common");
-  const { updateUserPreferences, refreshUser } = useAuth();
+  const { updateUserPreferences, refreshUser, getAccessToken } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,6 +37,8 @@ export function ProfileForm({ user }: ProfileFormProps) {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors, isDirty },
   } = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
@@ -42,8 +46,17 @@ export function ProfileForm({ user }: ProfileFormProps) {
       first_name: user.first_name,
       last_name: user.last_name,
       phone_number: user.phone_number,
+      profile_picture: user.profile_picture,
     },
   });
+
+  const profilePicture = watch("profile_picture");
+
+  const handleImageUpload = async (file: File): Promise<string> => {
+    const token = getAccessToken();
+    if (!token) throw new Error("Not authenticated");
+    return schoolsApi.uploadImage(token, file);
+  };
 
   const onSubmit = async (data: ProfileFormData) => {
     setIsLoading(true);
@@ -55,6 +68,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
         first_name: data.first_name,
         last_name: data.last_name,
         phone_number: data.phone_number,
+        profile_picture: data.profile_picture || undefined,
       });
       await refreshUser();
       setSuccess(true);
@@ -80,6 +94,23 @@ export function ProfileForm({ user }: ProfileFormProps) {
           {t("updateSuccess")}
         </div>
       )}
+
+      {/* Profile Picture Upload */}
+      <div className="space-y-4">
+        <Label>{t("profilePicture")}</Label>
+        <ImageUpload
+          value={profilePicture || undefined}
+          onChange={(url) => setValue("profile_picture", url, { shouldDirty: true })}
+          onUpload={handleImageUpload}
+          disabled={isLoading}
+          labels={{
+            dropzone: t("profileDropzone"),
+            dropzoneActive: t("profileDropzoneActive"),
+            uploading: t("profileUploading"),
+            remove: t("profileRemove"),
+          }}
+        />
+      </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
         {/* First Name */}

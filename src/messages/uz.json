@@ -83,7 +83,14 @@
     "status": "Holat",
     "active": "Faol",
     "inactive": "Faol emas",
-    "updateSuccess": "Profil muvaffaqiyatli yangilandi"
+    "updateSuccess": "Profil muvaffaqiyatli yangilandi",
+    "profilePicture": "Profil rasmi",
+    "profileDropzone": "Rasmni bu yerga tashlang yoki tanlash uchun bosing",
+    "profileDropzoneActive": "Rasmni bu yerga tashlang",
+    "profileUploading": "Yuklanmoqda...",
+    "profileRemove": "Rasmni o'chirish",
+    "updateDetails": "Shaxsiy ma'lumotlaringiz va profil rasmingizni bu yerda yangilang.",
+    "schoolMember": "Maktab a'zosi"
   },
   "users": {
     "title": "Foydalanuvchilar",
@@ -120,6 +127,14 @@
     "profileDropzoneActive": "Rasmni bu yerga tashlang",
     "profileUploading": "Yuklanmoqda...",
     "profileRemove": "Rasmni o'chirish"
+  },
+  "roles": {
+    "owner": "Egasi",
+    "superuser": "Superfoydalanuvchi",
+    "director": "Direktor",
+    "shareholder": "Aksioner",
+    "accountant": "Buxgalter",
+    "staff": "Xodim"
   },
   "common": {
     "appName": "Maktab Buxgalteriyasi",

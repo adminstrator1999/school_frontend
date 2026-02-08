@@ -83,7 +83,14 @@
     "status": "Статус",
     "active": "Активен",
     "inactive": "Неактивен",
-    "updateSuccess": "Профиль успешно обновлён"
+    "updateSuccess": "Профиль успешно обновлён",
+    "profilePicture": "Фото профиля",
+    "profileDropzone": "Перетащите изображение или нажмите для выбора",
+    "profileDropzoneActive": "Отпустите изображение",
+    "profileUploading": "Загрузка...",
+    "profileRemove": "Удалить фото",
+    "updateDetails": "Обновите личные данные и фото профиля здесь.",
+    "schoolMember": "Участник школы"
   },
   "users": {
     "title": "Пользователи",
@@ -120,6 +127,14 @@
     "profileDropzoneActive": "Отпустите изображение",
     "profileUploading": "Загрузка...",
     "profileRemove": "Удалить фото"
+  },
+  "roles": {
+    "owner": "Владелец",
+    "superuser": "Суперпользователь",
+    "director": "Директор",
+    "shareholder": "Акционер",
+    "accountant": "Бухгалтер",
+    "staff": "Сотрудник"
   },
   "common": {
     "appName": "Школьный учёт",

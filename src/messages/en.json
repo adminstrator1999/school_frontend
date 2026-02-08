@@ -83,7 +83,14 @@
     "status": "Status",
     "active": "Active",
     "inactive": "Inactive",
-    "updateSuccess": "Profile updated successfully"
+    "updateSuccess": "Profile updated successfully",
+    "profilePicture": "Profile Picture",
+    "profileDropzone": "Drop an image here or click to select",
+    "profileDropzoneActive": "Drop the image here",
+    "profileUploading": "Uploading...",
+    "profileRemove": "Remove picture",
+    "updateDetails": "Update your personal details and profile picture here.",
+    "schoolMember": "School Member"
   },
   "users": {
     "title": "Users",
@@ -120,6 +127,14 @@
     "profileDropzoneActive": "Drop the image here",
     "profileUploading": "Uploading...",
     "profileRemove": "Remove picture"
+  },
+  "roles": {
+    "owner": "Owner",
+    "superuser": "Superuser",
+    "director": "Director",
+    "shareholder": "Shareholder",
+    "accountant": "Accountant",
+    "staff": "Staff"
   },
   "common": {
     "appName": "School Accounting",

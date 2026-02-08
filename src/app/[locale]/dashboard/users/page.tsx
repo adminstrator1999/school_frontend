@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useAuth } from "@/providers/auth-provider";
-import { usersApi, type CreateUserData, type UpdateUserData, type UserRole, getCreatableRoles, ROLE_LABELS, canManageUser } from "@/lib/api/users";
+import { usersApi, type CreateUserData, type UpdateUserData, type UserRole, getCreatableRoles, canManageUser } from "@/lib/api/users";
 import { schoolsApi } from "@/lib/api/schools";
 import type { User, School } from "@/types/api";
 import { 
@@ -26,6 +26,7 @@ const ITEMS_PER_PAGE = 10;
 
 export default function UsersPage() {
   const t = useTranslations("users");
+  const tRoles = useTranslations("roles");
   const tCommon = useTranslations("common");
   const locale = useLocale() as "en" | "ru" | "uz";
   const { user: currentUser, getAccessToken, isLoading: authLoading } = useAuth();
@@ -222,7 +223,7 @@ export default function UsersPage() {
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 
   const getRoleLabel = (role: string) => {
-    return ROLE_LABELS[role as UserRole]?.[locale] || role;
+    return tRoles(role as any);
   };
 
   const getSchoolName = (schoolId: string | null) => {
