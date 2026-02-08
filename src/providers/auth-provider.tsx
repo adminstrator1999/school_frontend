@@ -90,8 +90,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const locale = getLocaleFromPath();
     setStoredTokens(null);
     setUser(null);
-    router.push(`/${locale}/login`);
-  }, [router, getLocaleFromPath]);
+    // Force a hard reload to ensure all state is cleared
+    window.location.href = `/${locale}/login`;
+  }, [getLocaleFromPath]);
 
   const fetchUser = useCallback(async (token: string, applyPrefs = false) => {
     try {

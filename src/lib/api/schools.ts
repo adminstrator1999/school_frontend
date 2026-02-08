@@ -21,7 +21,8 @@ export const schoolsApi = {
    * Get all active schools (for owner/superuser roles)
    */
   async getSchools(token: string): Promise<School[]> {
-    return apiClient.get<School[]>("/schools?is_active=true", token);
+    const response = await apiClient.get<{ items: School[]; total: number }>("/schools?is_active=true&limit=100", token);
+    return response.items;
   },
 
   /**

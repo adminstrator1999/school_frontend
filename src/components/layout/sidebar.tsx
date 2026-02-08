@@ -23,6 +23,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui";
+import { canAccessUsersPage, type UserRole } from "@/lib/api/users";
 import type { User } from "@/types/api";
 
 type Role = User["role"];
@@ -72,6 +73,16 @@ export function Sidebar() {
         // No school context (only owner/superuser on school selection page)
         { title: t("dashboard"), href: `/${locale}/dashboard`, icon: <LayoutDashboard className="h-5 w-5 shrink-0" /> },
       ];
+
+  // Add Users management link for roles that can access users page
+  const canManageUsers = user?.role && canAccessUsersPage(user.role as UserRole);
+  if (canManageUsers) {
+    allNavItems.push({
+      title: t("users"),
+      href: `/${locale}/dashboard/users`,
+      icon: <Users className="h-5 w-5 shrink-0" />,
+    });
+  }
 
   const navItems = allNavItems.filter((item) => 
     !item.roles || (user?.role && item.roles.includes(user.role))

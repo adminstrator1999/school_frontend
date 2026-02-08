@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { DashboardLayout } from "@/components/layout";
 import { Loader2 } from "lucide-react";
+import { locales, type Locale } from "@/i18n/config";
 
 export default function DashboardLayoutWrapper({
   children,
@@ -17,8 +18,10 @@ export default function DashboardLayoutWrapper({
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      // Extract locale from pathname
-      const locale = pathname.split("/")[1] || "en";
+      // Extract locale from pathname safely
+      const segments = pathname.split("/");
+      const possibleLocale = segments[1];
+      const locale = locales.includes(possibleLocale as Locale) ? possibleLocale : "en";
       router.push(`/${locale}/login`);
     }
   }, [isLoading, isAuthenticated, router, pathname]);

@@ -43,3 +43,10 @@ export interface School {
   created_at: string;
   updated_at: string;
 }
+
+export interface UserListResponse {
+  items: User[];
+  total: number;
+  skip: number;
+  limit: number;
+}
