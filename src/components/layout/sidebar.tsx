@@ -110,6 +110,10 @@ export function Sidebar() {
     if (normalizedHref === "/dashboard") {
       return normalizedPathname === "/dashboard";
     }
+    // School base path (e.g. /dashboard/schools/{uuid}) should only match exactly
+    if (/^\/dashboard\/schools\/[^/]+$/.test(normalizedHref)) {
+      return normalizedPathname === normalizedHref;
+    }
     return normalizedPathname === normalizedHref || normalizedPathname.startsWith(normalizedHref + "/");
   };
   const isChildActive = (item: NavItem) => item.children?.some((child) => {

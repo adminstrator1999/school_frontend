@@ -56,7 +56,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
       {/* Modal content */}
       <div
         className={cn(
-          "relative z-10 w-full max-w-md rounded-xl border border-border bg-card p-6 shadow-2xl",
+          "relative z-10 w-full max-w-md max-h-[85vh] overflow-y-auto rounded-xl border border-border bg-card p-6 shadow-2xl",
           "animate-in fade-in-0 zoom-in-95 duration-200",
           className
         )}

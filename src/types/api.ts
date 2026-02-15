@@ -117,3 +117,31 @@ export interface SchoolClassListResponse {
   skip: number;
   limit: number;
 }
+
+export interface Student {
+  id: string;
+  school_id: string;
+  school_class_id: string | null;
+  first_name: string;
+  last_name: string;
+  phone: string | null;
+  profile_picture: string | null;
+  parent_first_name: string;
+  parent_last_name: string;
+  parent_phone_1: string;
+  parent_phone_2: string | null;
+  monthly_fee: number;
+  payment_day: number;
+  enrolled_at: string;
+  graduated_at: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface StudentListResponse {
+  items: Student[];
+  total: number;
+  skip: number;
+  limit: number;
+}
