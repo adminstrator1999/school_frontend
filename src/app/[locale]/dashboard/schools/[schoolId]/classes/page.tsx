@@ -3,6 +3,7 @@
 import { use, useEffect, useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth-provider";
 import { classesApi } from "@/lib/api/classes";
 import type { SchoolClass } from "@/types/api";
@@ -22,6 +23,7 @@ export default function ClassesPage({ params }: ClassesPageProps) {
   const t = useTranslations("classes");
   const tCommon = useTranslations("common");
   const locale = useLocale();
+  const router = useRouter();
   const { getAccessToken } = useAuth();
 
   const [classes, setClasses] = useState<SchoolClass[]>([]);
@@ -147,14 +149,17 @@ export default function ClassesPage({ params }: ClassesPageProps) {
                 {filteredClasses.map((schoolClass) => (
                   <tr key={schoolClass.id} className="hover:bg-muted/50 transition-colors">
                     <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => router.push(`/${locale}/dashboard/schools/${schoolId}/students?classId=${schoolClass.id}`)}
+                        className="flex items-center gap-2 group text-left"
+                      >
                         <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-medium">
                           <BookOpen className="h-4 w-4" />
                         </div>
-                        <div className="font-medium text-sm">
+                        <div className="font-medium text-sm group-hover:text-primary group-hover:underline transition-colors">
                           {schoolClass.name}
                         </div>
-                      </div>
+                      </button>
                     </td>
                     <td className="px-4 py-3 text-sm">{schoolClass.grade}</td>
                     <td className="px-4 py-3 text-sm">{schoolClass.section}</td>

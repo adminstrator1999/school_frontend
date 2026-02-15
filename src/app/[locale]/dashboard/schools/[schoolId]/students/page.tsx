@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useEffect, useState, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/providers/auth-provider";
 import { studentsApi } from "@/lib/api/students";
@@ -22,12 +23,13 @@ export default function StudentsPage({ params }: StudentsPageProps) {
   const t = useTranslations("students");
   const tCommon = useTranslations("common");
   const { getAccessToken } = useAuth();
+  const searchParams = useSearchParams();
 
   const [students, setStudents] = useState<Student[]>([]);
   const [classes, setClasses] = useState<SchoolClass[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [classFilter, setClassFilter] = useState<string>("");
+  const [classFilter, setClassFilter] = useState<string>(searchParams.get("classId") || "");
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const limit = 20;
