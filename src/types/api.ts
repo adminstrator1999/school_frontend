@@ -145,3 +145,51 @@ export interface StudentListResponse {
   skip: number;
   limit: number;
 }
+
+export interface ExpenseCategory {
+  id: string;
+  school_id: string | null;
+  name: string;
+  is_system: boolean;
+}
+
+export interface ExpenseCategoryListResponse {
+  items: ExpenseCategory[];
+  total: number;
+  skip: number;
+  limit: number;
+}
+
+export interface Expense {
+  id: string;
+  school_id: string;
+  category_id: string;
+  employee_id: string | null;
+  recurring_expense_id: string | null;
+  amount: number;
+  description: string | null;
+  expense_date: string;
+  created_by_id: string;
+  category: {
+    id: string;
+    name: string;
+    is_system: boolean;
+  };
+  employee: {
+    id: string;
+    first_name: string;
+    last_name: string;
+  } | null;
+  created_by: {
+    id: string;
+    first_name: string;
+    last_name: string;
+  };
+}
+
+export interface ExpenseListResponse {
+  items: Expense[];
+  total: number;
+  skip: number;
+  limit: number;
+}
